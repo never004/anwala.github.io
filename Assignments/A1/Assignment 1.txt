@@ -1,0 +1,7 @@
+Assignment 1 of CS432 done by Nate Everett, undergrad level.
+
+A1 shows first part of assignment, showing the CURL demonstration. Two files: one is a screencap of the shell and another is the HTML document with the info.
+
+A2 shows the Python program for the assignment. A2.py is the program, with the comments laid out on what was done and where. A2_show1 shows the success of one of the tests.
+
+A3 shows two files for the bow-tie web graph part of the assignment. One is a PNG diagram of the nodes. The other is a .doc file showing which of the nodes belong in IN, SCC, OUT, etc.
