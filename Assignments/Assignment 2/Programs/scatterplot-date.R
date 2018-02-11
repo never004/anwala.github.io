@@ -1,0 +1,7 @@
+mementos <- c(128,2,256,2,2,3,2,1,6,1,2,14,1,2,1,1,4,4,2,3,1,12,6,4,16,3,16,3,1,1,2)
+days <- c(2934,3,226,5,2,149,2,3,10,2,2,1139,2,3,3,2,3,82,8,4,38,1418,38,3,860,6,860,6,4,2,2)
+plot(days, mementos, xlab="Age of site (days)", ylab="Number of mementos")
+title("Age of site vs. Number of Mementos")
+print("total URIs: 1000")
+cat("no mementos: ", 1000 - length(mementos), "\n")
+cat("no date estimate: ", 1000 - length(days))
