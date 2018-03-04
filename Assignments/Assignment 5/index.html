@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+  <style>
+    svg {
+      font: 10px sans-serif;
+    }
+    .node {
+      fill: #fff;
+      stroke: #555;
+      stroke-width: 1.5px;
+    }
+    .node-active{
+      stroke: red;
+      stroke-width: 1.5px;
+    }
+    .node-inactive{
+      opacity: .3;
+    }
+    .link {
+      stroke: #555;
+      stroke-width: 1.5px;
+      stroke-opacity: .7;
+    }
+    .link-active {
+      stroke: red;
+      stroke-width: 1.5px;
+      stroke-opacity: 1;
+    }
+    .link-inactive{
+      opacity: .3;
+    }
+    .label {
+      text-anchor: middle;
+    }
+    .overlay {
+      fill: none;
+      pointer-events: all;
+    }
+    #btnSplit {
+      position: absolute;
+      top = 0;
+      left = 0;
+    }
+  </style>
+</head>
+<body>
+  <button id="btnSplit">Split</button>
+  <script src="//d3js.org/d3.v3.min.js"></script>
+  <script>
+    var width = 860,
+        height = 500;
+    var color = d3.scale.category10();
+    var force = d3.layout.force()
+        .gravity(.05)
+        .distance(100)
+        .charge(-100)
+        .size([width, height]);    
+    var svg = d3.select("body").append("svg")
+        .attr("width", width)
+        .attr("height", height);   
+    function clone(obj) {
+      if (null == obj || "object" != typeof obj) return obj;
+      var copy = obj.constructor();
+      for (var attr in obj) {
+        if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+      }
+      return copy;
+    }    
+    d3.json("karate_club.json", function(error, graph) {
+      if (error) throw error;      
+      force
+        .nodes(graph.nodes)
+        .links(graph.links)
+        .start();      
+      var drag = d3.behavior.drag()
+        .origin(function(d) { return d; })
+        .on("dragstart", function (d) {
+          d3.event.sourceEvent.stopPropagation();
+          force.start();
+        })
+        .on("drag", function (d) {
+          d3.select(this).attr("cx", d.x = d3.event.x)
+            .attr("cy", d.y = d3.event.y);
+        })
+        .on("dragend", function(d) {});      
+      var container = svg.append("g");      
+      var link = container.append("g")
+        .attr("class", "links")
+        .selectAll(".link")
+        .data(graph.links)
+        .enter().append("line")
+          .attr("class", "link");      
+      var node = container.append("g")
+        .attr("class", "nodes")
+        .selectAll(".node")
+        .data(graph.nodes)
+        .enter().append("g")
+      		.call(drag);      
+      node.append("circle")
+      	.attr("class", "node")
+        .attr("r", function(d) {
+          if(d.id == 0 || d.id == 33) return 30
+          else return 20
+        })
+      	.style("stroke-width", function(d) {
+          if(d.id == 0 || d.id == 33) return 3
+        });      
+      node.append("text")
+        .attr("class", "label")
+        .text(function(d) { 
+          if(d.id == 0) return "Mr. Hi"
+          if(d.id == 33) return "John A"
+          else return d.id 
+        })      
+      force.on("tick", function() {
+        link.attr("x1", function(d) { return d.source.x; })
+            .attr("y1", function(d) { return d.source.y; })
+            .attr("x2", function(d) { return d.target.x; })
+            .attr("y2", function(d) { return d.target.y; });
+        
+        node.attr("transform", function(d) { 
+          return "translate(" + d.x + "," + d.y + ")" 
+        });
+      });      
+      var removedLinks = []
+      d3.select("#btnSplit").on("click", function() {
+        btn = d3.select(this)        
+        node.transition().selectAll(".node")
+        	.style("fill", function(d) { 
+          if(btn.text() == "Split") {
+            removedLinks = []
+            link.each(function(d, i) {
+              if(d.source.club !== d.target.club) {
+                removedLinks.push((link[0][i]))
+                link[0][i].remove()
+                force.start()
+              }
+            })            
+            return color(d.club)
+          } else {
+            t = container.transition()
+            removedLinks.forEach(function(l) {
+              l = d3.select(l)
+              t.select(".links").node()
+                	.appendChild(l.node())
+            })
+            force.start()            
+            return ""
+          }
+        })        
+        if(btn.text() == "Split") {
+          btn.text("Reset")
+        } else {
+          btn.text("Split")
+        }
+      })
+    })
+  </script>
+</body>
+</html>
