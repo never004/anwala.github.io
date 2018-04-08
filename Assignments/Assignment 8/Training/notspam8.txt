@@ -1,0 +1,11 @@
+You have to create the db procedure. If you use sqlplus on linux you do this by 
+
+Start myprocfilen.sql
+
+Where myprocfile.sql has the code to create the procedure:
+
+create or replace report_ug as
+...;
+/
+
+If you use the online sql you have to copy the contents of the file into the work area and submit it. Or there is an upload button that loads the file...

@@ -1,0 +1,11 @@
+Mr Everett,
+
+Glad you asked.
+
+The default value of the php directive 'short_open_tag' is supposed to be '1'.  This allows you to use '<?' instead of '<?php'.  This appears to be the case on the web servers but not on other hosts, at least atria.  I will contact root about this but in the meantime you can use
+
+php -ld 'short_open_tag'='1'
+
+instead of
+
+php -l

@@ -1,0 +1,22 @@
+Hello Everett, Nathaniel:
+
+According to our records, your MIDAS Password will expire in 14 days!
+Please take 15 minutes to log into https://midas.odu.edu and change your password before 04/11/2018.
+If your MIDAS password expires, you will be unable to access Blackboard, Portal, GMail, LAN Accounts, Monarch-Key as well as any other service MIDAS manages.
+
+Directions:
+  Please visit https://midas.odu.edu
+  Log in with your MIDAS ID and Current MIDAS Password.
+  You may have to complete several prerequisites before changing your password. Please follow the required steps which may include the password change.
+  If you do not have any prerequisites, click the "Your password will expire" notice on the left.
+  Enter your new MIDAS Password and click "Submit."
+  You will be redirected back to the Account at a Glance Page with a message that your password has been changed.
+  You will also receive a confirmation email to your Faculty/Staff and/or Student email addresses.
+
+*It may take up to 30 minutes for your password to update on some systems.
+
+For more information visit http://www.odu.edu/ts/access/monarchkey
+
+Thank you and have a nice day.
+
+Accounts Manager
